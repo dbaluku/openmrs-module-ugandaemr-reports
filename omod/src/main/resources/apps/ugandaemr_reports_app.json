@@ -379,7 +379,7 @@
         "type": "link",
         "label": "Active Patients in Care",
         "url": "reportingui/runReport.page?reportDefinition=9d6c7e51-2257-4f56-addc-e37e8272ff9d",
-        "order": 99
+        "order": 1
       }
 
     ]
