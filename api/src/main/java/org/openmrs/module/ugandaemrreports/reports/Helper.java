@@ -430,6 +430,7 @@ public class Helper {
         concepts.put("return date", "5096");
         concepts.put("clinical stage", "90203");
         concepts.put("baseline weight", "99069");
+        concepts.put("height", "5090");
         concepts.put("baseline cs", "99070");
         concepts.put("baseline cd4", "99071");
         concepts.put("baseline regimen", "99061");
@@ -445,6 +446,20 @@ public class Helper {
         concepts.put("vl date", "163023");
         concepts.put("vl qualitative", "1305");
         concepts.put("arvdays", "99036");
+        concepts.put("specialCategory", "165169");
+        concepts.put("advDisease", "165272");
+        concepts.put("muacCode", "99030");
+        concepts.put("muac", "1343");
+        concepts.put("nutritionalStatus", "165050");
+        concepts.put("crag", "165418");
+        concepts.put("tblam", "165416");
+        concepts.put("HepBResults", "1322");
+        concepts.put("syphillis", "99752");
+        concepts.put("TPTStartDate", "165226");
+        concepts.put("TPTStopDate", "165227");
+        concepts.put("fluconazoleStartDate", "1190");
+        concepts.put("fluconazoleStopDate", "1191");
+        concepts.put("TBStatus", "90216");
 
         return concepts;
     }
