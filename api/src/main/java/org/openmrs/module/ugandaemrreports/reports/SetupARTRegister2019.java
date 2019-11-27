@@ -126,6 +126,6 @@ public class SetupARTRegister2019 extends UgandaEMRDataExportManager {
 
     @Override
     public String getVersion() {
-        return "0.0.4.5";
+        return "0.0.4.7";
     }
 }

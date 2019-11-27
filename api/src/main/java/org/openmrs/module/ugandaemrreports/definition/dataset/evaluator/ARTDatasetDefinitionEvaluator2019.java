@@ -455,6 +455,14 @@ public class ARTDatasetDefinitionEvaluator2019 implements DataSetEvaluator {
 
                         ObsData toDate = getData(patientData, workingMonth, "99165");
                         ObsData currentlyDead = getData(patientData, workingMonth, "deaths");
+                        ObsData ARTCode = getData(patientData, workingMonth, "90315");
+                        ObsData DSDMCode = getData(patientData, workingMonth, "165143");
+                        ObsData TPT_Status = getData(patientData, workingMonth, "165288");
+                        ObsData Nutritional_Status = getData(patientData, workingMonth, "165050");
+                        ObsData advanced_Disease = getData(patientData, workingMonth, "165272");
+                        ObsData BF_Pregnacy_Status = getData(patientData, workingMonth, "90041");
+                        ObsData viralLoad = viralLoad(viralLoads, i);
+
 
                         if (returnDate != null) {
                             visit = returnDate;
@@ -464,6 +472,14 @@ public class ARTDatasetDefinitionEvaluator2019 implements DataSetEvaluator {
                         String status = "";
                         String adherence = "";
                         String tb = "";
+                        String ART_Code ="";
+                        String TPTStatus="";
+                        String nutritionStatus="";
+                        String adv_Disease_status ="";
+                        String DSDM= "";
+                        String VL_Status="";
+                        String pregnancy_status="";
+
 
                         if (inhDosage != null || cptDosage != null) {
                             cotrim = "Y";
@@ -506,34 +522,83 @@ public class ARTDatasetDefinitionEvaluator2019 implements DataSetEvaluator {
                         if (arvAdh != null) {
                             adherence = arvAdh.getReportName();
                         }
-                        pdh.addCol(row, "FUS" + String.valueOf(i), status);
-                        pdh.addCol(row, "Tb status" + String.valueOf(i), tb);
-                        pdh.addCol(row, "A" + String.valueOf(i), adherence);
-                        pdh.addCol(row, "C" + String.valueOf(i), cotrim);
 
-                        if (i == 6 || i == 12 || i == 24 || i == 36 || i == 48 || i == 60 || i == 72) {
+                        if(ARTCode !=null){
+                            ART_Code = ARTCode.getVal();
+                        }
+                        if(DSDMCode !=null){
+                            DSDM = DSDMCode.getVal();
+                        }
+                        if(TPT_Status !=null){
+                            TPTStatus = TPT_Status.getVal();
+                        }
+                        if(Nutritional_Status !=null){
+                            nutritionStatus = Nutritional_Status.getVal();
+                        }
+                        if(advanced_Disease !=null){
+                            adv_Disease_status =advanced_Disease.getVal();
+                        }
+                        if(BF_Pregnacy_Status !=null){
+                             pregnancy_status=BF_Pregnacy_Status.getVal();
+                        }
+
+
+                        pdh.addCol(row, "fu status" + String.valueOf(i), status);
+                        pdh.addCol(row, "TB Status" + String.valueOf(i), tb);
+                        pdh.addCol(row, "ADH" + String.valueOf(i), adherence);
+                        pdh.addCol(row, "CTX" + String.valueOf(i), cotrim);
+
+                        pdh.addCol(row, "ARV Code" + String.valueOf(i), ART_Code);
+                        pdh.addCol(row, "TPT" + String.valueOf(i), TPTStatus);
+                        pdh.addCol(row, "NutriStatus" + String.valueOf(i), nutritionStatus);
+                        pdh.addCol(row, "adv Disease" + String.valueOf(i), adv_Disease_status);
+                        pdh.addCol(row, "Preg/BFStatus" + String.valueOf(i), pregnancy_status);
+                        pdh.addCol(row, "DSDM" + String.valueOf(i), DSDM);
+                        pdh.addCol(row, "VL Status" + String.valueOf(i), (viralLoad == null ? "" : viralLoad.getVal()));
+
+
+                        if (i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42 ||i == 48 || i == 54|| i == 60 || i == 66 || i == 72) {
                             ObsData weight = getData(patientData, workingMonth, "90236");
                             ObsData cd4 = getData(patientData, workingMonth, "5497");
                             ObsData clinicalStage = getData(patientData, workingMonth, "90203");
-                            ObsData viralLoad = viralLoad(viralLoads, i);
+                            ObsData depressionStatus = getData(patientData, workingMonth, "165194");
+                            ObsData discloseStatus = getData(patientData, workingMonth, "99175");
+                            ObsData CaCx = getData(patientData, workingMonth, "165315");
+
 
                             pdh.addCol(row, "CI" + String.valueOf(i), clinicalStage == null ? "" : clinicalStage.getReportName());
 
-                            pdh.addCol(row, "W" + String.valueOf(i), weight == null ? "" : weight.getVal());
+                            pdh.addCol(row, "weight" + String.valueOf(i), weight == null ? "" : weight.getVal());
 
                             pdh.addCol(row, "CD4" + String.valueOf(i), (cd4 == null ? "" : cd4.getVal()));
-                            pdh.addCol(row, "VL" + String.valueOf(i), (viralLoad == null ? "" : viralLoad.getVal()));
+
+                            pdh.addCol(row, "Dep status" + String.valueOf(i), (depressionStatus == null ? "" : depressionStatus.getVal()));
+
+                            pdh.addCol(row, "Disc Status" + String.valueOf(i), (discloseStatus == null ? "" : discloseStatus.getVal()));
+
+                            pdh.addCol(row, "CaCx" + String.valueOf(i), (CaCx == null ? "" : CaCx.getVal()));
                         }
                     } else {
-                        pdh.addCol(row, "FUS" + String.valueOf(i), "");
-                        pdh.addCol(row, "Tb status" + String.valueOf(i), "");
-                        pdh.addCol(row, "A" + String.valueOf(i), "");
-                        pdh.addCol(row, "C" + String.valueOf(i), "");
-                        if (i == 6 || i == 12 || i == 24 || i == 36 || i == 48 || i == 60 || i == 72) {
+                        pdh.addCol(row, "fu status" + String.valueOf(i), "");
+                        pdh.addCol(row, "TB Status" + String.valueOf(i), "");
+                        pdh.addCol(row, "ADH" + String.valueOf(i), "");
+                        pdh.addCol(row, "CTX" + String.valueOf(i), "");
+
+                        pdh.addCol(row, "ARV Code" + String.valueOf(i), "");
+                        pdh.addCol(row, "TPT" + String.valueOf(i), "");
+                        pdh.addCol(row, "NutriStatus" + String.valueOf(i), "");
+                        pdh.addCol(row, "adv Disease" + String.valueOf(i), "");
+                        pdh.addCol(row, "Preg/BFStatus" + String.valueOf(i), "");
+                        pdh.addCol(row, "DSDM" + String.valueOf(i), "");
+                        pdh.addCol(row, "VL Status" + String.valueOf(i), "");
+                        if (i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42 ||i == 48 || i == 54|| i == 60 || i == 66 || i == 72) {
                             pdh.addCol(row, "CI" + String.valueOf(i), "");
-                            pdh.addCol(row, "W" + String.valueOf(i), "");
+                            pdh.addCol(row, "weight" + String.valueOf(i), "");
                             pdh.addCol(row, "CD4" + String.valueOf(i), "");
-                            pdh.addCol(row, "VL" + String.valueOf(i), "");
+                            pdh.addCol(row, "Dep status" + String.valueOf(i), "");
+                            pdh.addCol(row, "Disc Status" + String.valueOf(i), "");
+                            pdh.addCol(row, "CaCx" + String.valueOf(i), "");
+
                         }
                     }
 
