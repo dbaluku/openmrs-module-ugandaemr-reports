@@ -142,13 +142,14 @@ public class SetupDueForViralLoad extends UgandaEMRDataExportManager {
         CohortDefinition onArt = df.getPatientsInAny(onArtBeforeQuarter,onArtDuringQuarter);
         CohortDefinition onArtAnd1stANC = df.getPatientsInAll(onArt,anc1stVisitDuringPeriod());
         CohortDefinition onARTFor6Months = hivCohortDefinitionLibrary.getPatientsWhoStartedArtMonthsAgo("6m");
-        CohortDefinition viralLoadDuringperiod = hivCohortDefinitionLibrary.getPatientsWithViralLoadDuringPeriod();
+        CohortDefinition patientsWhoseViralLoadIsBetweenPastPeriodAndEndDate = df.getPatientsWhoseObsValueDateIsBetweenPastPeriodFromEndDate(hivMetadata.getViralLoadDate(),Arrays.asList(hivMetadata.getARTEncounterEncounterType())
+                ,"6m",BaseObsCohortDefinition.TimeModifier.ANY);
         CohortDefinition viralLoadByEndOfPeriod = hivCohortDefinitionLibrary.getPatientsWithLastViralLoadByEndDate();
         CohortDefinition onEMTCTDuringPeriod = df.getPatientsWithCodedObsDuringPeriod(hivMetadata.getEMTCTAtEnrollment(),
                 Arrays.asList(hivMetadata.getARTEncounterEncounterType()),Arrays.asList(hivMetadata.getYes()), BaseObsCohortDefinition.TimeModifier.FIRST);
 
         CohortDefinition startedEMTCTLast6Months =df.getPatientsWithCodedObsDuringPeriod(hivMetadata.getEMTCTAtEnrollment(),
-                                                        Arrays.asList(hivMetadata.getARTEncounterEncounterType()),Arrays.asList(hivMetadata.getYes()),"6m", BaseObsCohortDefinition.TimeModifier.FIRST);
+                Arrays.asList(hivMetadata.getARTEncounterEncounterType()),Arrays.asList(hivMetadata.getYes()),"6m", BaseObsCohortDefinition.TimeModifier.FIRST);
         CohortDefinition adultsDueForViralLoad = df.getPatientsInAll(commonCohortDefinitionLibrary.MoHAdult(),
                 hivCohortDefinitionLibrary.getPatientsWhoseLastViralLoadWasMonthsAgoFromPeriod("12m"));
 
@@ -156,7 +157,7 @@ public class SetupDueForViralLoad extends UgandaEMRDataExportManager {
                 hivCohortDefinitionLibrary.getPatientsWhoseLastViralLoadWasMonthsAgoFromPeriod("6m"));
         CohortDefinition firstANCOrEMTCTDuringPeriod = df.getPatientsInAny(onArtAnd1stANC,onEMTCTDuringPeriod);
 
-        CohortDefinition firstANCOrEMTCTAndNoViralLoadTaken = df.getPatientsNotIn(firstANCOrEMTCTDuringPeriod,viralLoadDuringperiod);
+        CohortDefinition firstANCOrEMTCTAndNoViralLoadTaken = df.getPatientsNotIn(firstANCOrEMTCTDuringPeriod,patientsWhoseViralLoadIsBetweenPastPeriodAndEndDate);
         CohortDefinition hadFirstAncOrEmtct6MonthsFromPeriod = df.getPatientsInAny(anc1stVisit6MonthsFromPeriod(), startedEMTCTLast6Months);
 
         CohortDefinition hadFirstAncOrEmtct6MonthsFromPeriodAndLastViralLoadWas6MonthsAgo =df.getPatientsInAll(hadFirstAncOrEmtct6MonthsFromPeriod,
@@ -222,7 +223,7 @@ public class SetupDueForViralLoad extends UgandaEMRDataExportManager {
 
     @Override
     public String getVersion() {
-        return "3.0.5.1";
+        return "3.0.6";
     }
 }
 
