@@ -609,7 +609,7 @@
         "requiredPrivilege": "App: ugandaemrreports.HMIS105"
       },
       {
-        "id": "UgandaEMR Metrics Report",
+        "id": "Analytics Report",
         "extensionPointId": "org.openmrs.module.ugandaemr.integrationdataexports",
         "type": "link",
         "label": "UgandaEMR Metrics Report",
